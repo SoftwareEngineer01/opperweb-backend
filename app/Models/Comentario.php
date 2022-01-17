@@ -10,6 +10,11 @@ class Comentario extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'post_id',
+        'contenido',
+    ];
+
     public function post() {
         return $this->belongsTo(Post::class);
     }

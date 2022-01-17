@@ -18,4 +18,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Categorías
 Route::resource('categoria', 'CategoriaController');
+
+// Posts
+Route::resource('post', 'PostController');

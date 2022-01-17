@@ -88,14 +88,17 @@ class PostController extends ResponseApiController
 
             $comentarios = $request->comentarios;
 
-            $post->comentarios()->where('post_id', $id)->delete();
-                                   
-            foreach ($comentarios as $comentario) {
-                $post->comentarios()->save(new Comentario([
-                    'contenido' => $comentario['contenido'],
-                ]));
-            }
+            if($comentarios != null) {
 
+                $post->comentarios()->where('post_id', $id)->delete();
+
+                foreach ($comentarios as $comentario) {
+                    $post->comentarios()->save(new Comentario([
+                        'contenido' => $comentario['contenido'],
+                    ]));
+                }
+            }            
+           
             $data = new PostResource($post);
             $message = $this->sendResponse($data, 'Post actualizado correctamente');
         }catch (\Exception $e) {

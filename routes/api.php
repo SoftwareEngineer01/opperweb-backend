@@ -23,3 +23,6 @@ Route::resource('categoria', 'CategoriaController');
 
 // Posts
 Route::resource('post', 'PostController');
+
+// Comentarios
+Route::resource('comentario', 'ComentarioController');

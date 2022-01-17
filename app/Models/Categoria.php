@@ -9,6 +9,10 @@ class Categoria extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nombre',
+    ];
+
     public function posts()
     {
         return $this->hasMany(Post::class);

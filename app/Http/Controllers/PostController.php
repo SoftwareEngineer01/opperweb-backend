@@ -24,7 +24,23 @@ class PostController extends ResponseApiController
    
     public function store(Request $request)
     {
-        //
+        $message = null;
+
+        $request->validate([
+            'categoria_id' => 'required',
+            'titulo' => 'required|string|max:255',
+            'contenido' => 'required|string',
+        ]);
+
+        try {
+            $post = Post::create($request->all());
+            $data = new PostResource($post);
+            $message = $this->sendResponse($data, 'Post creado correctamente');
+        }catch (\Exception $e) {
+            $message = $this->sendError('Error al crear el post', $e->getMessage());
+        }
+
+        return $message;
     }
 
     

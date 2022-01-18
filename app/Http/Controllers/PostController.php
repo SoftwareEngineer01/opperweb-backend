@@ -31,7 +31,6 @@ class PostController extends ResponseApiController
             'categoria_id' => 'required',
             'titulo' => 'required|string|max:255',
             'contenido' => 'required|string',
-            'comentarios' => 'required|array',
         ]);
 
         try {
@@ -41,11 +40,15 @@ class PostController extends ResponseApiController
             $post->contenido = $request->contenido;
             $post->save();
 
-            foreach ($request->comentarios as $comentario) {
-                $post->comentarios()->save(new Comentario([
-                    'contenido' => $comentario['contenido'],
-                ]));
-            }
+            $comentarios = $request->comentarios;
+
+            if($comentarios != null) {
+                foreach ($comentarios as $comentario) {
+                    $post->comentarios()->save(new Comentario([
+                        'contenido' => $comentario['contenido'],
+                    ]));
+                }
+            }            
 
             $data = new PostResource($post);
             $message = $this->sendResponse($data, 'Post creado correctamente');

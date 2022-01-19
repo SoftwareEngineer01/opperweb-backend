@@ -15,9 +15,8 @@ class PostController extends ResponseApiController
     {
         $message = null;
 
-        $posts = Post::orderByDesc('created_at')->get();
-        $data = PostResource::collection($posts);
-        $message = $this->sendResponse($data, 'Posts listados correctamente');
+        $posts = Post::orderByDesc('created_at')->get();        
+        $message = $this->sendResponse($posts, 'Posts listados correctamente');
 
         return $message;
     }

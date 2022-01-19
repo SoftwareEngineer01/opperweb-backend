@@ -17,6 +17,11 @@ class Post extends Model
         'contenido',
     ];
 
+    protected $with = [
+        'categoria:id,nombre',
+        'comentarios:id,post_id,contenido,created_at',
+    ];
+
     public function comentarios()
     {
         return $this->hasMany(Comentario::class);
